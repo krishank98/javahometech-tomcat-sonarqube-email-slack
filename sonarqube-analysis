@@ -21,5 +21,7 @@ node{
       Hari''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'krishankumarr98@gmail.com'
    }
   
-
+    stage('Slack Notifications'){
+        slackSend baseUrl: 'https://hooks.slack.com/services/', channel: '#jenkins', color: 'good', message: 'goood', tokenCredentialId: 'slack-1', username: 'che12'       
+}
 }
