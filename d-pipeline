@@ -1,3 +1,4 @@
+currentBuild.displayName =" javahometech course app #" + currentBuild.number
 pipeline{
      
     agent any
