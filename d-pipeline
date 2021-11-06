@@ -1,0 +1,33 @@
+pipeline{
+     
+    agent any
+    
+    environment {
+     PATH="/usr/share/apache-maven/bin:$PATH"
+     }
+     
+    stages{
+        stage('Scm Checkout'){
+            steps{
+                git 'https://github.com/krishank98/my-app.git'
+            }
+        }
+        stage('Maven build'){
+        steps{
+        sh "mvn clean package"
+        }
+    }
+    
+      stage('Deploy to Tomcat'){
+      
+      sshagent(['tomcat-server-slave1']) {
+         sh """
+         scp -o StrictHostKeyChecking=no target/*.jar ec2-user@172.31.7.40:/var/lib/tomcat/webapps'
+         shh ec2-user@172.31.7.40:/var/lib/tomcat/shutdown.sh
+         shh ec2-user@172.31.7.40:/var/lib/tomcat/startup.sh
+         """
+      }
+   }
+    
+    }
+}
