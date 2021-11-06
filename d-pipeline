@@ -22,7 +22,7 @@ pipeline{
           steps{
       sshagent(['tomcat-server-slave1']) {
          sh """
-         scp -o StrictHostKeyChecking=no target/*.jar ec2-user@172.31.7.40:/var/lib/tomcat/webapps
+         scp -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.7.40:/var/lib/tomcat/webapps
          shh ec2-user@172.31.7.40:/var/lib/tomcat/shutdown.sh
          shh ec2-user@172.31.7.40:/var/lib/tomcat/startup.sh
          """
