@@ -19,11 +19,22 @@ pipeline{
         }
     }
     
+    stage('install tomcat'){
+    steps{
+    sshagent(['ubuntu-jen]'){
+    sh """
+    ssh -t -t -o ec2-user@172.31.4.199 StrictHostKeyChecking=no "sudo yum update -y && sudo amazon-linux-extras install ansible2 -y"
+    
+    """
+    }
+    
+    }
+    
       stage('Deploy to Tomcat'){
           steps{
-      sshagent(['tomcat-server-slave1']) {
+      sshagent(['ubuntu-jen']) {
          sh """
-         scp -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.7.40:/var/lib/tomcat/webapps
+         scp -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.4.199:/var/lib/tomcat/webapps
         
          """
       }
