@@ -23,7 +23,7 @@ pipeline{
     steps{
     sshagent(['ubuntu-jen']){
     sh """
-    ssh -t -t  ec2-user@172.31.4.199 StrictHostKeyChecking=no "sudo yum update -y && sudo yum install tomcat -y"
+    ssh -t -t  ec2-user@172.31.4.199 StrictHostKeyChecking=no "sudo yum update -y && sudo yum install tomcat -y && sudo service tomcat start && sudo chmod 777 /var/lib/tomcat/webapps"
     
     """
     }
