@@ -13,7 +13,7 @@ node{
   }
   
   stage('Docker Build'){
-    sh "sudo yum install docker -y"
+   // sh "sudo yum install docker -y"
     sh "docker build -t ${nexus_tag} ."
   }
   
