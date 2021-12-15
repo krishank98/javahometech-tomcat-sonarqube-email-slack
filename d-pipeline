@@ -21,7 +21,7 @@ pipeline{
     
     stage('install tomcat'){
     steps{
-    sshagent(['ubuntu-jen]'){
+    sshagent(['ubuntu-jen']){
     sh """
     ssh -t -t -o ec2-user@172.31.4.199 StrictHostKeyChecking=no "sudo yum update -y && sudo amazon-linux-extras install ansible2 -y"
     
