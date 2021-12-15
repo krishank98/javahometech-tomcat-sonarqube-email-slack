@@ -10,7 +10,7 @@ pipeline{
     stages{
         stage('Scm Checkout'){
             steps{
-                git 'https://github.com/krishank98/my-app.git'
+                git 'https://github.com/krishank98/tomcat-pipeline.git'
             }
         }
         stage('Maven build'){
