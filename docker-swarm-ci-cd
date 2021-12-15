@@ -14,7 +14,7 @@ node{
   
   stage('Docker Build'){
    // sh "sudo yum install docker -y"
-    sh "docker build -t ${nexus_tag} ."
+    sh "docker build -t static-image ."
   }
   
   stage('Push to Nexus'){
