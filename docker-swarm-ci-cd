@@ -14,6 +14,7 @@ node{
   
   stage('Docker Build'){
    // sh "sudo yum install docker -y"
+   // sh "sudo chmod 777 /var/run/docker.sock"
     sh "docker build -t static-image ."
   }
   
