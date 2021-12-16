@@ -32,7 +32,7 @@ node{
 	try{
 	   
 	   sshagent (credentials: ['ubuntu-jen']) {
-	   sh' ssh -t -t ec2-user@172.31.4.199 -o StrictHostKeyChecking=no  "docker swarm init && docker service create -d -p 90:8080 --replicas=7 --name=myweb1 ubuntu"'
+	   sh' ssh -t -t ec2-user@172.31.4.199 -o StrictHostKeyChecking=no  "docker swarm init && docker service create -d -p 8083:80 --replicas=7 --name=myweb2 apache"'
        
       }
 	}catch(e){
