@@ -30,16 +30,15 @@ node{
   
   stage('Deploy to swarm'){
 	try{
-	   def service =  "docker service create -d -p 90:8080 --replicas=7 --name=myweb latest"
+	   
 	   sshagent (credentials: ['ubuntu-jen']) {
-	   def svs = "ec2-user@172.31.4.199 ${service}"
+	   sh" ssh -o StrictHostKeyChecking=no ec2-user@172.31.4.199 "docker service create -d -p 90:8080 --replicas=7 --name=myweb latest""
        sh "ssh -o StrictHostKeyChecking=no  ${svs}"
       }
 	}catch(e){
 	   def service =  "docker service update  --image=${nexus_tag} myweb"
-	   sshagent (credentials: ['docker-swarm-manager']) {
-	   def svs = "ec2-user@13.233.223.243 ${service}"
-       sh "ssh -o StrictHostKeyChecking=no  ${svs}"
+	   sshagent (credentials: ['ubuntu-jen']) {
+	    sh" ssh -o StrictHostKeyChecking=no ec2-user@172.31.4.199 "docker service update  --image=latest myweb""
 	
 		}
 	}
