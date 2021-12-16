@@ -32,13 +32,13 @@ node{
 	try{
 	   
 	   sshagent (credentials: ['ubuntu-jen']) {
-	   sh" ssh -o StrictHostKeyChecking=no ec2-user@172.31.4.199 "docker service create -d -p 90:8080 --replicas=7 --name=myweb latest""
-       sh "ssh -o StrictHostKeyChecking=no  ${svs}"
+	   sh' ssh -t -t ec2-user@172.31.4.199 -o StrictHostKeyChecking=no  "docker service create -d -p 90:8080 --replicas=7 --name=myweb latest"'
+       
       }
 	}catch(e){
 	   def service =  "docker service update  --image=${nexus_tag} myweb"
 	   sshagent (credentials: ['ubuntu-jen']) {
-	    sh" ssh -o StrictHostKeyChecking=no ec2-user@172.31.4.199 "docker service update  --image=latest myweb""
+	    sh' ssh -t -t ec2-user@172.31.4.199 -o StrictHostKeyChecking=no  "docker service update  --image=latest myweb"'
 	
 		}
 	}
