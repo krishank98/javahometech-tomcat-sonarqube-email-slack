@@ -15,13 +15,18 @@ node{
   stage('Docker Build'){
    // sh "sudo yum install docker -y"
    // sh "sudo chmod 777 /var/run/docker.sock"
-    sh "docker build -t static-image ."
+    sh "docker build -t krish2356/jenkins ."
   }
   
-  stage('Push to Nexus'){
-	sh "docker login 172.31.24.222:8083 -u admin -p admin123"
-	sh "docker push ${nexus_tag}"
-  }
+ stage('DockerHub Push'){
+            steps{
+                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerhubPwd')]) {
+                    sh "docker login -u krish2356 -p ${dockerhubPwd}"
+                }
+                
+                sh "docker push krish2356/jenkins "
+            }
+        }
   
   stage('Deploy to swarm'){
 	try{
